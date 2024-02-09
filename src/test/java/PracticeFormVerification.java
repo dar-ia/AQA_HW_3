@@ -13,7 +13,7 @@ public class PracticeFormVerification {
     static void commonConfig() {
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl="https://demoqa.com/automation-practice-form";
-        Configuration.holdBrowserOpen=true;
+        //Configuration.holdBrowserOpen=true;
         Configuration.browserSize = "1280×1024";
     }
 
@@ -21,6 +21,11 @@ public class PracticeFormVerification {
     void beforeEachConfig(){
         open(Configuration.baseUrl);
         executeJavaScript("$('footer').remove()");
+    }
+
+    @AfterEach
+    void afterEachConfig(){
+        closeWebDriver();
     }
 
 
