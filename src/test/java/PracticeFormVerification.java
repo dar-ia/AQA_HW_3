@@ -64,16 +64,9 @@ public class PracticeFormVerification {
         Assertions.assertEquals($(".table.table-dark.table-striped.table-bordered.table-hover tr:nth-child(9) td:nth-child(2)").getText(), "street, 123house");
         Assertions.assertEquals($(".table.table-dark.table-striped.table-bordered.table-hover tr:nth-child(10) td:nth-child(2)").getText(), "NCR Delhi");
 
+        $("#closeLargeModal").click();
 
-//        $(".table.table-dark table-striped.table-bordered.table-hover").shouldHave(text("Name"));
-//        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-//        $("#table-responsive").shouldHave(text("Thanks for submitting the form"));
-//        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-//        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-//        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-//        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-//        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
-//        $("#example-modal-sizes-title-lg").shouldHave(text("Thanks for submitting the form"));
+        $(byText("Student Registration Form")).exists();
 
 
     }
