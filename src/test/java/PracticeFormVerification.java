@@ -26,31 +26,40 @@ public class PracticeFormVerification {
 
     @Test
     void submitPassedTest(){
+
+        //fill in registration form
         $("#firstName").setValue("Name");
         $("#lastName").setValue("Surname");
         $("#userEmail").setValue("mail@example.com");
+
         $(byText("Female")).click();
+
         $("#userNumber").setValue("9876543210");
+
         $("#dateOfBirthInput").click();
         $(".react-datepicker__month-select").click();
         $(byText("January")).click();
         $(".react-datepicker__year-select").click();
         $(byText("1998")).click();
         $(".react-datepicker__day.react-datepicker__day--014").click();
+
         $("#subjectsInput").setValue("English").pressEnter();
         $("#subjectsInput").setValue("Biology").pressEnter();
+
         $(byText("Reading")).click();
         $(byText("Sports")).click();
+
         $("#currentAddress").setValue("street, 123house");
 
         File file = new File("src/test/resources/new 16.txt");
-
         $(".form-control-file").uploadFile(file);
+
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Delhi").pressEnter();
 
         $("#submit").scrollTo().click(usingJavaScript());
 
+        //verification that form was submitted successfully
         Assertions.assertEquals($("#example-modal-sizes-title-lg").getText(), "Thanks for submitting the form");
 
         Assertions.assertEquals($(".table.table-dark.table-striped.table-bordered.table-hover tr:nth-child(1) td:nth-child(2)").getText(), "Name Surname");
@@ -64,6 +73,7 @@ public class PracticeFormVerification {
         Assertions.assertEquals($(".table.table-dark.table-striped.table-bordered.table-hover tr:nth-child(9) td:nth-child(2)").getText(), "street, 123house");
         Assertions.assertEquals($(".table.table-dark.table-striped.table-bordered.table-hover tr:nth-child(10) td:nth-child(2)").getText(), "NCR Delhi");
 
+        //verification that form was successfully closed
         $("#closeLargeModal").click();
 
         $(byText("Student Registration Form")).exists();
