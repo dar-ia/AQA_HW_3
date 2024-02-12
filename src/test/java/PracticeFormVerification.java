@@ -2,25 +2,24 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 
 import static com.codeborne.selenide.ClickOptions.usingJavaScript;
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-import java.io.File;
 public class PracticeFormVerification {
 
     @BeforeAll
     static void commonConfig() {
         Configuration.pageLoadStrategy = "eager";
-        Configuration.baseUrl="https://demoqa.com/automation-practice-form";
+        Configuration.baseUrl="https://demoqa.com";
         //Configuration.holdBrowserOpen=true;
         Configuration.browserSize = "1280×1024";
     }
 
     @BeforeEach
     void beforeEachConfig(){
-        open(Configuration.baseUrl);
+        open("/automation-practice-form");
         executeJavaScript("$('footer').remove()");
+        executeJavaScript("$('#fixedban').remove()");
     }
 
     @AfterEach
@@ -56,8 +55,7 @@ public class PracticeFormVerification {
 
         $("#currentAddress").setValue("street, 123house");
 
-        File file = new File("src/test/resources/new 16.txt");
-        $(".form-control-file").uploadFile(file);
+        $(".form-control-file").uploadFromClasspath("new 16.txt");
 
         $("#react-select-3-input").setValue("NCR").pressEnter();
         $("#react-select-4-input").setValue("Delhi").pressEnter();
@@ -79,7 +77,7 @@ public class PracticeFormVerification {
         Assertions.assertEquals($(".table.table-dark.table-striped.table-bordered.table-hover tr:nth-child(10) td:nth-child(2)").getText(), "NCR Delhi");
 
         //verification that form was successfully closed
-        $("#closeLargeModal").click();
+        $("#closeLargeModal").click(usingJavaScript());
 
         $(byText("Student Registration Form")).exists();
 
