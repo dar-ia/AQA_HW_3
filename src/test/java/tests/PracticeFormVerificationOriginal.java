@@ -1,3 +1,5 @@
+package tests;
+
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 
@@ -5,7 +7,9 @@ import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormVerification {
+public class PracticeFormVerificationOriginal {
+
+
 
     @BeforeAll
     static void commonConfig() {
@@ -32,6 +36,8 @@ public class PracticeFormVerification {
     void submitPassedTest(){
 
         //fill in registration form
+
+
         $("#firstName").setValue("Name");
         $("#lastName").setValue("Surname");
         $("#userEmail").setValue("mail@example.com");
