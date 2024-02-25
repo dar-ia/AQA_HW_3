@@ -1,8 +1,10 @@
 package pages;
+
 import pages.components.CalendarComponent;
 
 import com.codeborne.selenide.SelenideElement;
 
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -13,60 +15,104 @@ public class PractiveFormPageObject {
     private SelenideElement userEmailElement = $("#userEmail");
     private SelenideElement userNumberElement = $("#userNumber");
     private SelenideElement currentAddressElement = $("#currentAddress");
-    private  SelenideElement subjectElement = $("#subjectsInput");
+    private SelenideElement subjectElement = $("#subjectsInput");
     private SelenideElement stateElement = $("#react-select-3-input");
     private SelenideElement genderButtonsElement = $("#genterWrapper");
-    private SelenideElement hobbiesElement =  $("#hobbiesWrapper");
+    private SelenideElement hobbiesElement = $("#hobbiesWrapper");
 
     private SelenideElement uploadFileElement = $(".form-control-file");
 
-    private SelenideElement cityElement =$("#react-select-4-input");
+    private SelenideElement cityElement = $("#react-select-4-input");
+
+    private SelenideElement tableTitleElement = $("#example-modal-sizes-title-lg");
+
+    private SelenideElement mainTitleElement = $(byText("Student Registration Form"));
+
     CalendarComponent calendar = new CalendarComponent();
-    public void openPage(){
+
+    public PractiveFormPageObject openPage() {
         open("/automation-practice-form");
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
+        return this;
     }
-    public void setFistName(String firstName){
+
+    public PractiveFormPageObject setFistName(String firstName) {
         firstNameElement.setValue(firstName);
+        return this;
     }
 
-    public void setLastName(String lastName){
+    public PractiveFormPageObject setLastName(String lastName) {
         lastNameElement.setValue(lastName);
+        return this;
     }
-    public void setUserEmail(String userEmail){
+
+    public PractiveFormPageObject setUserEmail(String userEmail) {
         userEmailElement.setValue(userEmail);
+        return this;
     }
-    public void setUserNumber(String userNumber){
+
+    public PractiveFormPageObject setUserNumber(String userNumber) {
         userNumberElement.setValue(userNumber);
+        return this;
     }
 
-    public void setCurrentAddress(String address){
+    public PractiveFormPageObject setCurrentAddress(String address) {
         currentAddressElement.setValue(address);
+        return this;
     }
-    public void setSubject(String subject){
+
+    public PractiveFormPageObject setSubject(String subject) {
         subjectElement.setValue(subject).pressEnter();
+        return this;
     }
-    public void setStateAndCity(String state, String city){
+
+    public PractiveFormPageObject setStateAndCity(String state, String city) {
         stateElement.setValue(state).pressEnter();
-        stateElement.setValue(city).pressEnter();
+        cityElement.setValue(city).pressEnter();
+        return this;
     }
-    public void setGender(String gender){
+
+    public PractiveFormPageObject setGender(String gender) {
         genderButtonsElement.$(byText(gender)).click();
+        return this;
+
     }
 
-    public void setHobby(String hobby){
+    public PractiveFormPageObject setHobby(String hobby) {
         hobbiesElement.$(byText(hobby)).click();
+        return this;
     }
 
-    public void setCalendar(String day, String month, String year){
+    public PractiveFormPageObject setCalendar(String day, String month, String year) {
 
         $("#dateOfBirthInput").click();
-        calendar.setCalendarComponent(day,month,year);
+        calendar.setCalendarComponent(day, month, year);
+        return this;
     }
 
-    public void uploadFie(String filename){
+    public PractiveFormPageObject uploadFie(String filename) {
         uploadFileElement.uploadFromClasspath(filename);
+        return this;
+    }
+
+//    public PractiveFormPageObject assertTitle(){
+//
+//    }
+
+    public PractiveFormPageObject assertTable(String key, String value) {
+        $(".table-responsive").$(byText(key)).parent().shouldHave(text(value));
+        return this;
+    }
+
+    public PractiveFormPageObject assertTableTitle(String title) {
+        tableTitleElement.shouldHave(text(title));
+        return this;
+    }
+
+    public PractiveFormPageObject assertPageTitle(String title) {
+        mainTitleElement.shouldHave(text(title));
+        return this;
     }
 
 
