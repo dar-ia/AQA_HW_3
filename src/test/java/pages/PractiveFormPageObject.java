@@ -3,7 +3,9 @@ package pages;
 import pages.components.CalendarComponent;
 
 import com.codeborne.selenide.SelenideElement;
+import pages.components.OutputComponent;
 
+import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -27,14 +29,15 @@ public class PractiveFormPageObject {
     private SelenideElement tableTitleElement = $("#example-modal-sizes-title-lg");
 
     private SelenideElement mainTitleElement = $(byText("Student Registration Form"));
+    private SelenideElement  tableCloseElement =$("#closeLargeModal");
+    private SelenideElement submitFormElement = $("#submit");
 
     CalendarComponent calendar = new CalendarComponent();
 
-    public PractiveFormPageObject openPage() {
+    public void openPage() {
         open("/automation-practice-form");
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
-        return this;
     }
 
     public PractiveFormPageObject setFistName(String firstName) {
@@ -96,12 +99,9 @@ public class PractiveFormPageObject {
         return this;
     }
 
-//    public PractiveFormPageObject assertTitle(){
-//
-//    }
-
     public PractiveFormPageObject assertTable(String key, String value) {
-        $(".table-responsive").$(byText(key)).parent().shouldHave(text(value));
+        OutputComponent result = new OutputComponent();
+        result.assertTable(key,value);
         return this;
     }
 
@@ -112,6 +112,15 @@ public class PractiveFormPageObject {
 
     public PractiveFormPageObject assertPageTitle(String title) {
         mainTitleElement.shouldHave(text(title));
+        return this;
+    }
+    public PractiveFormPageObject closeTable(){
+        tableCloseElement.click(usingJavaScript());
+        return this;
+    }
+
+    public PractiveFormPageObject submitForm(){
+        submitFormElement.click();
         return this;
     }
 

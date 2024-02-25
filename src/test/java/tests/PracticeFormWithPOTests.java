@@ -31,7 +31,7 @@ public class PracticeFormWithPOTests {
 
 
     @Test
-    void verifyWithPageObjectTest() {
+    void verifyFullInformationTest() {
 
         page.assertPageTitle("Student Registration Form");
 
@@ -48,9 +48,9 @@ public class PracticeFormWithPOTests {
                 .setHobby("Sports")
                 .setCurrentAddress("street, 123house")
                 .uploadFie("new 16.txt")
-                .setStateAndCity("NCR", "Delhi");
+                .setStateAndCity("NCR", "Delhi")
+                .submitForm();
 
-        $("#submit").click();
 
         //Do assertions
         page.assertTableTitle("Thanks for submitting the form")
@@ -65,10 +65,41 @@ public class PracticeFormWithPOTests {
                 .assertTable("Hobbies", "Sports")
                 .assertTable("Picture", "new 16.txt")
                 .assertTable("Address", "street, 123house")
-                .assertTable("State and City", "NCR Delhi");
+                .assertTable("State and City", "NCR Delhi")
+                .closeTable()
+                .assertPageTitle("Student Registration Form");
+    }
 
-        $("#closeLargeModal").click(usingJavaScript());
+    @Test
+    void verifyMinimalInformationTest(){
         page.assertPageTitle("Student Registration Form");
+
+        //fill in registration form
+        page.setFistName("First")
+                .setLastName("Last")
+                .setUserNumber("9876543210")
+                .setGender("Female")
+                .submitForm();
+
+
+        //Do assertions
+        page.assertTableTitle("Thanks for submitting the form")
+                .assertTable("Student Name", "First Last")
+                .assertTable("Gender", "Female")
+                .assertTable("Mobile", "9876543210")
+                .closeTable()
+                .assertPageTitle("Student Registration Form");
+
+    }
+
+    @Test
+    void verifyNegativeTest(){
+        page.assertPageTitle("Student Registration Form");
+        page.setFistName("First")
+                .setLastName("Last")
+                .setUserNumber("9876543210")
+                .submitForm()
+                .assertPageTitle("Student Registration Form");
 
 
     }
