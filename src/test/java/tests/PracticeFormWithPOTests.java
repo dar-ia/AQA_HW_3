@@ -1,37 +1,16 @@
 package tests;
-
-import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 import pages.PractiveFormPageObject;
 
-import static com.codeborne.selenide.ClickOptions.usingJavaScript;
-import static com.codeborne.selenide.Selenide.*;
 
-public class PracticeFormWithPOTests {
+public class PracticeFormWithPOTests extends TestBase {
 
     PractiveFormPageObject page = new PractiveFormPageObject();
-
-    @BeforeAll
-    static void commonConfig() {
-        Configuration.pageLoadStrategy = "eager";
-        Configuration.baseUrl = "https://demoqa.com";
-        //Configuration.holdBrowserOpen = true;
-        Configuration.browserSize = "1280×1024";
-    }
-
-    @BeforeEach
-    void beforeEachConfig() {
-        page.openPage();
-    }
-
-    @AfterEach
-    void afterEachConfig() {
-        closeWebDriver();
-    }
 
 
     @Test
     void verifyFullInformationTest() {
+        page.openPage();
 
         page.assertPageTitle("Student Registration Form");
 
@@ -54,25 +33,27 @@ public class PracticeFormWithPOTests {
 
         //Do assertions
         page.assertTableTitle("Thanks for submitting the form")
-                .assertTable("Student Name", "First Last")
-                .assertTable("Student Email", "user@email.po")
-                .assertTable("Gender", "Female")
-                .assertTable("Mobile", "9876543210")
-                .assertTable("Date of Birth", "14 January,1998")
-                .assertTable("Subjects", "English")
-                .assertTable("Subjects", "Biology")
-                .assertTable("Hobbies", "Reading")
-                .assertTable("Hobbies", "Sports")
-                .assertTable("Picture", "new 16.txt")
-                .assertTable("Address", "street, 123house")
-                .assertTable("State and City", "NCR Delhi")
+                .assertTableRecord("Student Name", "First Last")
+                .assertTableRecord("Student Email", "user@email.po")
+                .assertTableRecord("Gender", "Female")
+                .assertTableRecord("Mobile", "9876543210")
+                .assertTableRecord("Date of Birth", "14 January,1998")
+                .assertTableRecord("Subjects", "English")
+                .assertTableRecord("Subjects", "Biology")
+                .assertTableRecord("Hobbies", "Reading")
+                .assertTableRecord("Hobbies", "Sports")
+                .assertTableRecord("Picture", "new 16.txt")
+                .assertTableRecord("Address", "street, 123house")
+                .assertTableRecord("State and City", "NCR Delhi")
                 .closeTable()
                 .assertPageTitle("Student Registration Form");
     }
 
     @Test
-    void verifyMinimalInformationTest(){
-        page.assertPageTitle("Student Registration Form");
+    void verifyMinimalInformationTest() {
+        page.openPage()
+                .assertPageTitle("Student Registration Form");
+
 
         //fill in registration form
         page.setFistName("First")
@@ -84,17 +65,18 @@ public class PracticeFormWithPOTests {
 
         //Do assertions
         page.assertTableTitle("Thanks for submitting the form")
-                .assertTable("Student Name", "First Last")
-                .assertTable("Gender", "Female")
-                .assertTable("Mobile", "9876543210")
+                .assertTableRecord("Student Name", "First Last")
+                .assertTableRecord("Gender", "Female")
+                .assertTableRecord("Mobile", "9876543210")
                 .closeTable()
                 .assertPageTitle("Student Registration Form");
 
     }
 
     @Test
-    void verifyNegativeTest(){
-        page.assertPageTitle("Student Registration Form");
+    void verifyNegativeTest() {
+        page.openPage()
+                .assertPageTitle("Student Registration Form");
         page.setFistName("First")
                 .setLastName("Last")
                 .setUserNumber("9876543210")
@@ -103,4 +85,5 @@ public class PracticeFormWithPOTests {
 
 
     }
+
 }

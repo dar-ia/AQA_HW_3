@@ -6,12 +6,10 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
-public class OutputComponent {
+public class TableResultComponent {
 
-    private SelenideElement tableTitleElement = $("#example-modal-sizes-title-lg");
-    private SelenideElement mainTitleElement = $(byText("Student Registration Form"));
     private SelenideElement tableElement = $(".table-responsive");
-    public void assertTable(String key, String value) {
+    public void assertRecord(String key, String value) {
         tableElement.$(byText(key)).parent().shouldHave(text(value));
     }
 }

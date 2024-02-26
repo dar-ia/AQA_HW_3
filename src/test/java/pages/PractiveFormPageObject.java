@@ -3,7 +3,7 @@ package pages;
 import pages.components.CalendarComponent;
 
 import com.codeborne.selenide.SelenideElement;
-import pages.components.OutputComponent;
+import pages.components.TableResultComponent;
 
 import static com.codeborne.selenide.ClickOptions.usingJavaScript;
 import static com.codeborne.selenide.Condition.text;
@@ -34,10 +34,11 @@ public class PractiveFormPageObject {
 
     CalendarComponent calendar = new CalendarComponent();
 
-    public void openPage() {
+    public PractiveFormPageObject openPage() {
         open("/automation-practice-form");
         executeJavaScript("$('footer').remove()");
         executeJavaScript("$('#fixedban').remove()");
+        return this;
     }
 
     public PractiveFormPageObject setFistName(String firstName) {
@@ -90,7 +91,7 @@ public class PractiveFormPageObject {
     public PractiveFormPageObject setCalendar(String day, String month, String year) {
 
         $("#dateOfBirthInput").click();
-        calendar.setCalendarComponent(day, month, year);
+        calendar.setCalendarDate(day, month, year);
         return this;
     }
 
@@ -99,9 +100,9 @@ public class PractiveFormPageObject {
         return this;
     }
 
-    public PractiveFormPageObject assertTable(String key, String value) {
-        OutputComponent result = new OutputComponent();
-        result.assertTable(key,value);
+    public PractiveFormPageObject assertTableRecord(String key, String value) {
+        TableResultComponent result = new TableResultComponent();
+        result.assertRecord(key,value);
         return this;
     }
 
@@ -123,6 +124,8 @@ public class PractiveFormPageObject {
         submitFormElement.click();
         return this;
     }
+
+
 
 
 }
