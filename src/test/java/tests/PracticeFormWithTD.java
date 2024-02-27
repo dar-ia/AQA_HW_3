@@ -11,19 +11,25 @@ public class PracticeFormWithTD extends TestBase {
 
     PractiveFormPageObject page = new PractiveFormPageObject();
 
-    String firstName, lastName, userEmail, userPhoneNumber, userGender, userSubject, userHobby, userAddress;
+    String firstName, lastName, userEmail, userPhoneNumber, userGender, userSubject, city, state, userHobby, userAddress, fileName, birthDay, birthMonth, birthYear;
 
 
     @Test
     void verifyFullInformationTest() {
-        firstName=generateFirstName();
-        lastName=generateLastName();
-        userEmail=generateUserEmail();
-        userPhoneNumber=generateUserPhone();
-        userSubject=generateSubject();
-        userGender=generateGender();
-        userHobby=generateHobby();
-        userAddress=generateAddress();
+        firstName = generateFirstName();
+        lastName = generateLastName();
+        userEmail = generateUserEmail();
+        userPhoneNumber = generateUserPhone();
+        userSubject = generateSubject();
+        userGender = generateGender();
+        userHobby = generateHobby();
+        userAddress = generateAddress();
+        fileName = generateFileSelection();
+        birthYear = generateYear();
+        birthMonth = generateMonth();
+        birthDay = generateDay(birthMonth);
+        state = generateState();
+        city = generateCity(state);
         page.openPage();
 
         page.assertPageTitle("Student Registration Form");
@@ -32,31 +38,29 @@ public class PracticeFormWithTD extends TestBase {
         page.setFistName(firstName)
                 .setLastName(lastName)
                 .setUserEmail(userEmail)
-                .setUserNumber("9876543210")
+                .setUserNumber(userPhoneNumber)
                 .setGender(userGender)
-                .setCalendar("14", "January", "1998")
+                .setCalendar(birthDay, birthMonth, birthYear)
                 .setSubject(userSubject)
-                .setSubject("Biology")
                 .setHobby(userHobby)
                 .setCurrentAddress(userAddress)
-                .uploadFie("new 16.txt")
-                .setStateAndCity("NCR", "Delhi")
+                .uploadFie(fileName)
+                .setStateAndCity(state, city)
                 .submitForm();
 
 
         //Do assertions
         page.assertTableTitle("Thanks for submitting the form")
-                .assertTableRecord("Student Name", firstName+" "+lastName)
+                .assertTableRecord("Student Name", firstName + " " + lastName)
                 .assertTableRecord("Student Email", userEmail)
                 .assertTableRecord("Gender", userGender)
-                .assertTableRecord("Mobile", "9876543210")
-                .assertTableRecord("Date of Birth", "14 January,1998")
+                .assertTableRecord("Mobile", userPhoneNumber)
+                .assertTableRecord("Date of Birth", birthDay + " " + birthMonth + "," + birthYear)
                 .assertTableRecord("Subjects", userSubject)
-                .assertTableRecord("Subjects", "Biology")
                 .assertTableRecord("Hobbies", userHobby)
-                .assertTableRecord("Picture", "new 16.txt")
+                .assertTableRecord("Picture", fileName)
                 .assertTableRecord("Address", userAddress)
-                .assertTableRecord("State and City", "NCR Delhi")
+                .assertTableRecord("State and City", state + " " + city)
                 .closeTable()
                 .assertPageTitle("Student Registration Form");
     }

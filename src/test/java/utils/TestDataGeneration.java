@@ -1,7 +1,9 @@
 package utils;
 
 import com.github.javafaker.Faker;
+import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Locale;
 
 public class TestDataGeneration {
@@ -20,7 +22,7 @@ public class TestDataGeneration {
     }
 
     public static String generateUserPhone() {
-        return fakerTestData.phoneNumber().phoneNumber();
+        return fakerTestData.phoneNumber().subscriberNumber(10);
     }
 
     public static String generateGender() {
@@ -39,10 +41,58 @@ public class TestDataGeneration {
         return fakerTestData.options().option("images.png", "notpng.jpeg", "ping.jpg");
     }
 
-    public static String generateAddress(){
+    public static String generateAddress() {
         return fakerTestData.address().fullAddress();
     }
 
+    public static String generateYear() {
+        return String.valueOf(fakerTestData.number().numberBetween(1920, 2024));
+    }
+
+    public static String generateMonth() {
+        return fakerTestData.options().option("January", "February", "March", "April", "June", "July", "August", "September", "October", "November", "December");
+    }
+
+    public static String generateDay(String month) {
+        String dayOfMonth = "1";
+        if (month.equals("February")) {
+            dayOfMonth = String.valueOf(fakerTestData.number().numberBetween(1, 28));
+        } else if (List.of("January", "March", "May", "July", "August", "October", "December").contains(month)) {
+            dayOfMonth = String.valueOf(fakerTestData.number().numberBetween(1, 31));
+        } else if (List.of("April", "June", "September", "November").contains(month)) {
+            dayOfMonth = String.valueOf(fakerTestData.number().numberBetween(1, 30));
+        }
+        return dayOfMonth;
+    }
+    //public String generateDate(String)
+
+    public static String generateState() {
+        return fakerTestData.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
+
+    }
+
+    public static String generateCity(String state) {
+        String city = "";
+        if (state.equals("NCR")) {
+            city = fakerTestData.options().option("Delhi", "Gurgaon", "Noida");
+        } else if (state.equals("Uttar Pradesh")) {
+            city = fakerTestData.options().option("Agra", "Lucknow", "Merrut");
+        } else if (state.equals("Haryana")) {
+            city = fakerTestData.options().option("Karnal", "Panipat");
+        } else {
+            city = fakerTestData.options().option("Jaipur", "Jaiselmer");
+        }
+        return city;
+    }
+
+
+//    @Test
+//    public void phoneTest() {
+//        String year = generateYear();
+//        String month = generateMonth();
+//        String day = generateDay(month);
+//        System.out.println(day + " " + month + " " + year);
+//    }
 
 
 //                .setCalendar("14", "January", "1998")
