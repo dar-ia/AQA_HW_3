@@ -54,7 +54,7 @@ public class TestDataGeneration {
     }
 
     public static String generateDay(String month) {
-        String dayOfMonth = "1";
+        String dayOfMonth = "";
         if (month.equals("February")) {
             dayOfMonth = String.valueOf(fakerTestData.number().numberBetween(1, 28));
         } else if (List.of("January", "March", "May", "July", "August", "October", "December").contains(month)) {
@@ -64,7 +64,6 @@ public class TestDataGeneration {
         }
         return dayOfMonth;
     }
-    //public String generateDate(String)
 
     public static String generateState() {
         return fakerTestData.options().option("NCR", "Uttar Pradesh", "Haryana", "Rajasthan");
@@ -86,18 +85,19 @@ public class TestDataGeneration {
     }
 
 
-//    @Test
-//    public void phoneTest() {
-//        String year = generateYear();
-//        String month = generateMonth();
-//        String day = generateDay(month);
-//        System.out.println(day + " " + month + " " + year);
-//    }
+    @Test
+    public void phoneTest() {
+        String year = generateYear();
 
+        String month = generateMonth();
+        System.out.println(month);
+        String day = generateDay(month);
+        System.out.println(day);
+        System.out.println(day + " " + month + " " + year);
 
-//                .setCalendar("14", "January", "1998")
+        System.out.println(day + " " + month + " " + year);
 
-//                .setCurrentAddress("street, 123house")
-//                .setStateAndCity("NCR", "Delhi")
+        System.out.println(day + " " + month + " " + year);
+    }
 
 }

@@ -2,7 +2,6 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import pages.PractiveFormPageObject;
-import utils.TestDataGeneration.*;
 
 import static utils.TestDataGeneration.*;
 
@@ -67,23 +66,28 @@ public class PracticeFormWithTD extends TestBase {
 
     @Test
     void verifyMinimalInformationTest() {
+        firstName = generateFirstName();
+        lastName = generateLastName();
+        userPhoneNumber = generateUserPhone();
+        userGender = generateGender();
+
         page.openPage()
                 .assertPageTitle("Student Registration Form");
 
 
         //fill in registration form
-        page.setFistName("First")
-                .setLastName("Last")
-                .setUserNumber("9876543210")
-                .setGender("Female")
+        page.setFistName(firstName)
+                .setLastName(lastName)
+                .setUserNumber(userPhoneNumber)
+                .setGender(userGender)
                 .submitForm();
 
 
         //Do assertions
         page.assertTableTitle("Thanks for submitting the form")
-                .assertTableRecord("Student Name", "First Last")
-                .assertTableRecord("Gender", "Female")
-                .assertTableRecord("Mobile", "9876543210")
+                .assertTableRecord("Student Name", firstName + " " + lastName)
+                .assertTableRecord("Gender", userGender)
+                .assertTableRecord("Mobile", userPhoneNumber)
                 .closeTable()
                 .assertPageTitle("Student Registration Form");
 
@@ -91,11 +95,16 @@ public class PracticeFormWithTD extends TestBase {
 
     @Test
     void verifyNegativeTest() {
+        firstName = generateFirstName();
+        lastName = generateLastName();
+        userPhoneNumber = generateUserPhone();
+
         page.openPage()
                 .assertPageTitle("Student Registration Form");
-        page.setFistName("First")
-                .setLastName("Last")
-                .setUserNumber("9876543210")
+
+        page.setFistName(firstName)
+                .setLastName(lastName)
+                .setUserNumber(userPhoneNumber)
                 .submitForm()
                 .assertPageTitle("Student Registration Form");
 
