@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import pages.PractiveFormPageObject;
+import utils.TestDataGeneration;
 
 import static utils.TestDataGeneration.*;
 
@@ -9,26 +10,40 @@ import static utils.TestDataGeneration.*;
 public class PracticeFormWithTD extends TestBase {
 
     PractiveFormPageObject page = new PractiveFormPageObject();
+    TestDataGeneration testData = new TestDataGeneration();
 
-    String firstName, lastName, userEmail, userPhoneNumber, userGender, userSubject, city, state, userHobby, userAddress, fileName, birthDay, birthMonth, birthYear;
+    String firstName,
+            lastName,
+            userEmail,
+            userPhoneNumber,
+            userGender,
+            userSubject,
+            city,
+            state,
+            userHobby,
+            userAddress,
+            fileName,
+            birthDay,
+            birthMonth,
+            birthYear;
 
 
     @Test
     void verifyFullInformationTest() {
-        firstName = generateFirstName();
-        lastName = generateLastName();
-        userEmail = generateUserEmail();
-        userPhoneNumber = generateUserPhone();
-        userSubject = generateSubject();
-        userGender = generateGender();
-        userHobby = generateHobby();
-        userAddress = generateAddress();
-        fileName = generateFileSelection();
-        birthYear = generateYear();
-        birthMonth = generateMonth();
-        birthDay = generateDay(birthMonth);
-        state = generateState();
-        city = generateCity(state);
+        firstName = testData.generateFirstName();
+        lastName = testData.generateLastName();
+        userEmail = testData.generateUserEmail();
+        userPhoneNumber = testData.generateUserPhone();
+        userSubject = testData.generateSubject();
+        userGender = testData.generateGender();
+        userHobby = testData.generateHobby();
+        userAddress = testData.generateAddress();
+        fileName = testData.generateFileSelection();
+        birthYear = testData.generateYear();
+        birthMonth = testData.generateMonth();
+        birthDay = testData.generateDay(birthMonth);
+        state = testData.generateState();
+        city = testData.generateCity(state);
         page.openPage();
 
         page.assertPageTitle("Student Registration Form");
@@ -66,10 +81,10 @@ public class PracticeFormWithTD extends TestBase {
 
     @Test
     void verifyMinimalInformationTest() {
-        firstName = generateFirstName();
-        lastName = generateLastName();
-        userPhoneNumber = generateUserPhone();
-        userGender = generateGender();
+        firstName = testData.generateFirstName();
+        lastName = testData.generateLastName();
+        userPhoneNumber = testData.generateUserPhone();
+        userGender = testData.generateGender();
 
         page.openPage()
                 .assertPageTitle("Student Registration Form");
@@ -95,9 +110,9 @@ public class PracticeFormWithTD extends TestBase {
 
     @Test
     void verifyNegativeTest() {
-        firstName = generateFirstName();
-        lastName = generateLastName();
-        userPhoneNumber = generateUserPhone();
+        firstName = testData.generateFirstName();
+        lastName = testData.generateLastName();
+        userPhoneNumber = testData.generateUserPhone();
 
         page.openPage()
                 .assertPageTitle("Student Registration Form");
